@@ -2,7 +2,7 @@
 
 using namespace std;
 
-void func1(){
+void func1(){ //무한 loop
     for(char s = 0 ; s < 128 ; s++){
         cout << "hi";
     }
