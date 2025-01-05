@@ -1,31 +1,25 @@
+#include <bits/stdc++.h>
 #include <iostream>
 
 using namespace std;
 
-void func1(){ //무한 loop
-    for(char s = 0 ; s < 128 ; s++){
-        cout << "hi";
-    }
+void func1(vector<int> v){
+    v[10] = 7;
 }
 
-int func2(){
-    int r = 1;
-    for(int i = 1; i <= 50; i++){
-        r = r*i % 61;
-    }
-    return r;
+bool compare(vector<int> v1,vector<int> v2, int idx){
+    return v1[idx] > v2[idx];
 }
 
-int func3(){
-    int a = 10;
-    int mod = 1000000007;
-    for(int i = 0 ; i < 10 ; i++)
-        a = 10 * a % mod;
-    return a;
+bool compare2(vector<int>& v1,vector<int>& v2, int idx){
+    return v1[idx] > v2[idx];
 }
 
 int main(){
 
-
-    return 0;
+    vector<int> v(100); // 0으로 초기화
+    func1(v);
+    cout << v[10];
 }
+
+
