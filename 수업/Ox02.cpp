@@ -16,10 +16,20 @@ bool compare2(vector<int>& v1,vector<int>& v2, int idx){
 }
 
 int main(){
+    /* 
+    입력
 
-    vector<int> v(100); // 0으로 초기화
-    func1(v);
-    cout << v[10];
+    14 104
+    2 5
+    94 542
+    */
+
+    for(int i = 0;i<3; i++){
+        int a,b;
+        cin >> a >> b;
+        cout << a+b << '\n';
+    }
+
 }
 
 
