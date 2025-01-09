@@ -18,5 +18,11 @@
     <ClCompile Include="2752.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="quickSort.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="2753.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
