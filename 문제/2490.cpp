@@ -18,7 +18,7 @@ int main(){
         vector<int> row; //초기화 필수
 
         getline(cin,line);
-        stringstream ss(line);
+        stringstream ss(line); // 문자열을 공백 기준으로 split
 
         while(ss >> num){
             row.push_back(num);
