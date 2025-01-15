@@ -33,5 +33,11 @@
     <ClCompile Include="10804.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="수업.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="10808.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
