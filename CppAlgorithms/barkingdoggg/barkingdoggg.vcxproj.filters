@@ -13,52 +13,58 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Source Files\기초 및 배열">
+    <Filter Include="Source Files\알고리즘">
+      <UniqueIdentifier>{fd857a90-bb9e-4226-a7fe-86d821d5676f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\알고리즘\기초 및 배열">
       <UniqueIdentifier>{306c482f-f469-4a12-8dc5-2b1b0a46e82c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="quickSort.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="수업.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="1267.cpp">
-      <Filter>Source Files\기초 및 배열</Filter>
+      <Filter>Source Files\알고리즘\기초 및 배열</Filter>
     </ClCompile>
     <ClCompile Include="1475.cpp">
-      <Filter>Source Files\기초 및 배열</Filter>
+      <Filter>Source Files\알고리즘\기초 및 배열</Filter>
     </ClCompile>
     <ClCompile Include="2480.cpp">
-      <Filter>Source Files\기초 및 배열</Filter>
+      <Filter>Source Files\알고리즘\기초 및 배열</Filter>
     </ClCompile>
     <ClCompile Include="2577.cpp">
-      <Filter>Source Files\기초 및 배열</Filter>
+      <Filter>Source Files\알고리즘\기초 및 배열</Filter>
     </ClCompile>
     <ClCompile Include="2752.cpp">
-      <Filter>Source Files\기초 및 배열</Filter>
+      <Filter>Source Files\알고리즘\기초 및 배열</Filter>
     </ClCompile>
     <ClCompile Include="2753.cpp">
-      <Filter>Source Files\기초 및 배열</Filter>
+      <Filter>Source Files\알고리즘\기초 및 배열</Filter>
     </ClCompile>
     <ClCompile Include="3273.cpp">
-      <Filter>Source Files\기초 및 배열</Filter>
+      <Filter>Source Files\알고리즘\기초 및 배열</Filter>
     </ClCompile>
     <ClCompile Include="10804.cpp">
-      <Filter>Source Files\기초 및 배열</Filter>
+      <Filter>Source Files\알고리즘\기초 및 배열</Filter>
     </ClCompile>
     <ClCompile Include="10808.cpp">
-      <Filter>Source Files\기초 및 배열</Filter>
+      <Filter>Source Files\알고리즘\기초 및 배열</Filter>
     </ClCompile>
     <ClCompile Include="10807.cpp">
-      <Filter>Source Files\기초 및 배열</Filter>
+      <Filter>Source Files\알고리즘\기초 및 배열</Filter>
     </ClCompile>
     <ClCompile Include="13300.cpp">
-      <Filter>Source Files\기초 및 배열</Filter>
+      <Filter>Source Files\알고리즘\기초 및 배열</Filter>
     </ClCompile>
     <ClCompile Include="11328.cpp">
-      <Filter>Source Files\기초 및 배열</Filter>
+      <Filter>Source Files\알고리즘\기초 및 배열</Filter>
+    </ClCompile>
+    <ClCompile Include="1919.cpp">
+      <Filter>Source Files\알고리즘\기초 및 배열</Filter>
+    </ClCompile>
+    <ClCompile Include="수업.cpp">
+      <Filter>Source Files\알고리즘</Filter>
+    </ClCompile>
+    <ClCompile Include="quickSort.cpp">
+      <Filter>Source Files\알고리즘</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

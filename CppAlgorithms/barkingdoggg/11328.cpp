@@ -10,40 +10,30 @@ int main() {
 	int N; //case numbers
 
 	cin >> N;
+	
 
-	for (int i = 0; i < N; i++) {
-		int store[1000] = {};
-		string left;
-		string right;
+	while (N--) {
+		int a[26] = {}; //각 문자의 개수 저장 배열
 
-		cin >> left >> right;
+		string s1, s2;
+		cin >> s1, s2;
 
-		if (left.size() != right.size()) { //길이 비교
-			cout << "Impossible" << "\n";
-			continue;
+		for (auto c : s1) //문자 갯수 만큼 ++
+			a[c - 'a']++;
+		for (auto c : s2)//짝지은 문자 만큼 --
+			a[c - 'a']--;
+
+		bool isPossible = true;
+
+		for (int i : a) {
+			if (i != 0) // 남는 숫자가 있으면 false
+				isPossible = false;
 		}
 
-		for (int k = 0; k < left.size(); k++) { //알파벳 유무 저장
-			store[left[k] - 'a']++;
-			//cout << "left index: " << left[k] - 'a' << '\n';
-		}
-
-		for (int j = 0; j < right.size(); j++) {
-			//cout << "right index: " << right[j] - 'a' << '\n';
-			
-			if (store[right[j] - 'a'] == 0) {
-				cout << "Impossible" << "\n";
-				break;
-			}
-			else {
-				store[right[j] - 'a']--;
-			}
-
-			if(j == right.size() - 1)
-				cout << "Possible" << '\n';
-		}
-
-
+		if (isPossible)
+			cout << "Possible\n";
+		else
+			cout << "Impossible\n";
 	}
 
 	return 0;
