@@ -1,151 +1,33 @@
-#include <iostream>
+#include <bits/stdc++.h>
+
 using namespace std;
-
-class Node{
-    public:
-        int value;
-        Node* next;
-        
-        Node(int v){
-            value = v;
-            next = NULL;
-        }
-};
-
-void traverse(Node* head){
-    Node* cur = head;
-
-    while( cur != NULL){
-        cout << cur->value << "->"; // 현재 값 출력
-        cur = cur ->next;
-    }
-    cout << "NULL" << endl;
-}
-
-void insertAtHead(Node* &head,int val){
-    Node* newNode = new Node(val);//노드 생성
-    
-    newNode -> next = head; // 원래 헤드 노드를 포인팅
-    head = newNode; // new node를 헤드로 설정
-
-}
-
-void insertAtLast(Node* &head,int val){
-
-    if(head == NULL){ // 빈 배열일때
-        insertAtHead(head,val);
-        return;
-    }
-
-    Node* newNode = new Node(val); //생성
-    Node* cur = head;
-
-    while(cur->next != NULL){ //마지막 노드 전에 도착
-        cur = cur ->next;
-    }
-
-    cur -> next = newNode;
-}
-
-void insertAtMiddle(Node* &head,int val, int pos){
-
-    if(pos == 1){
-        insertAtHead(head,val);
-        return;
-    }
-
-    Node* newNode = new Node(val);
-    Node* cur = head;
-    int cnt = 1;
-
-    while(cnt < pos -1){ // k-1 번째 까지 탐색
-        cur = cur -> next;
-        cnt++;
-    }
-
-    newNode -> next = cur->next;
-    cur->next = newNode;
-}
-
-void deleteAtStart(Node*  &head){
-    
-    if(head == NULL)
-        return;
-
-    Node* cur = head;
-    head = head->next;
-    free(cur);
-}
-
-void deleteAtEnd(Node* &head){
-    if(head == NULL)
-        return;
-    
-    if(head->next ==NULL){ //노드가 하나만 있을 떄
-        deleteAtStart(head);
-        return;
-    }
-
-    Node* secondLastNode = head;
-
-    while(secondLastNode->next->next != NULL){ //마지막 전 노드 찾기
-        secondLastNode = secondLastNode -> next;
-    }
-
-    Node* lastNode = secondLastNode->next;
-    secondLastNode -> next = NULL;
-    free(lastNode); //마지막 노드 할당 해제
-}
-
-void deleteAtMiddle(Node* &head,int pos){
-
-    if(pos == 1){
-        deleteAtStart(head);
-        return;
-    }
-
-    Node* prev = head;
-    int cnt = 1;
-    
-    while(cnt < pos -1){ // pos 전까지 도착
-        prev = prev->next;
-        cnt++;
-    }
-    Node* cur = prev->next;
-
-    prev -> next = cur->next; //삭제할 포인터의 next를 가리키게 해야함
-    free(cur);
-
-}
-
-void updatePositionValue(Node* &head,int value ,int pos){
-    Node* cur = head;
-    int cnt = 1;
-
-    while(cnt < pos){ // cur이 pos 도착
-        cur = cur->next;
-        cnt++;
-    }
-
-    cur -> value = value;
-}
 
 int main(){
 
-    Node* node1 = new Node(1);
-    Node* node2 = new Node(2);
-    Node* node3 = new Node(3);
+    list<int> L = {1,2}; // 연결리스트 선언
+    list<int>::iterator t = L.begin(); // t는 1을 가리키는 중
 
-    node1 -> next = node2;
-    node2 -> next = node3;
+    L.push_front(10);  // 10 1 2
+    cout << *t << '\n';
 
-    Node* head = node1;//head
-    insertAtHead(head,0);
-    traverse(head);
-    insertAtLast(head,4);
-    traverse(head);
-    insertAtMiddle(head,999,4);
-    traverse(head);
+    L.push_back(5);// 10 1 2 5
+    L.insert(t,6);// t가 가리키는 곳 앞에 6을 삽입, 10 6 1 2 5
+    t++; //다음 원소
+
+    t = L.erase(t); // erase()는 t가 가리키는 값을 제거 후 그 다음 원소인 5의 위치를 반환
+                    // 10 6 1 5,t 가 가리키는 값은 5
+                    // 링크드 리스트의 삭제와 동일하다
+
+    cout << *t << '\n';
+
+    for(auto i:L) // cpp 11 이상
+        cout << i <<' ';
+
+    cout << '\n';
+
+    for(list<int>::iterator it = L.begin();it != L.end();it++){ //cpp 11 미만
+        cout << *it << ' ';
+    }
 
     return 0;
 }
