@@ -1,52 +1,32 @@
 #include <bits/stdc++.h>
-
 using namespace std;
 
-void NGE(int index,vector<int>& input,int n){
-    vector<int> v;
+int a[1000000];
+int ans[1000000];
 
-    v.push_back(input[index]);
+int main(void) {
+  ios::sync_with_stdio(0);
+  cin.tie(0);
 
-    for(int i = index + 1 ; i < n ; i++ ){
-        if(v[0] < input[i]){
-            
-            if(v.size() == 2 && input[i] < input[0]){
-                v.pop_back();
-                v.push_back(input[i]);
-                continue;
-            }
+  int n;
+  cin >> n;
 
-            v.push_back(input[i]);
-        }
+  for (int i = 0; i < n; i++) 
+    cin >> a[i];
 
+  stack<int> S;
 
-    }
+  for (int i = n - 1; i >= 0; i--) {
+    while (!S.empty() && S.top() <= a[i]) 
+        S.pop();
 
-    if(v.size() < 2){
-        cout << -1 << " ";
-    }else{
-        cout << v[1] << " ";
-    }
-}
+    if (S.empty())
+      ans[i] = -1;
+    else
+      ans[i] = S.top();
 
-int main(){
-    ios::sync_with_stdio(0);
-    cin.tie(0);
+    S.push(a[i]);
+  }
 
-    vector<int> input;
-    
-    int n;
-    cin >> n;
-
-    for(int i = 0 ; i < n ; i++){
-        int temp;
-        cin >> temp;
-        input.push_back(temp);
-    }
-
-    for(int i = 0; i < n ; i++){
-        NGE(i,input,n);
-    }
-
-    return 0;
+  for (int i = 0; i < n; i++) cout << ans[i] << ' ';
 }
