@@ -1,10 +1,46 @@
-#include "Worker.h"
+#include <iostream>
 
 using namespace std;
 
-int main(){
+class PoweredDevice{
+public:
+    int m_i;
 
-    Worker().doSomething();
+    PoweredDevice(int power){
+        cout << "PoweredDevice" << power << '\n';
+    }
+};
+
+class Scanner : virtual public PoweredDevice{
+public:
+    Scanner(int scanner,int power)
+        :PoweredDevice(power)
+    {
+        cout << "Scanner: " << scanner << endl;
+    }
+};
+
+class Printer : virtual public PoweredDevice{
+public:
+    Printer(int printer, int power)
+        :PoweredDevice(power){
+            cout << "Printer: " << printer << endl;
+        }
+};
+
+
+class Copier : public Scanner, public Printer{ // 다중 상속
+public:
+    Copier(int scanner , int printer , int power)
+        :Scanner(scanner,power),Printer(printer,power),PoweredDevice(power)
+        {}
+};
+
+int main(){
+    Copier cop(1,2,3);
+
+    cout << &cop.Scanner::PoweredDevice::m_i << endl;
+    cout << &cop.Printer::PoweredDevice::m_i << endl;
 
     return 0;
 }
