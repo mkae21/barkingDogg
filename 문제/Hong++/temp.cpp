@@ -1,46 +1,44 @@
 #include <iostream>
+#include <vector>
+#include <functional>
 
 using namespace std;
 
-class PoweredDevice{
+class Base{
 public:
-    int m_i;
+    int m_i = 0;
 
-    PoweredDevice(int power){
-        cout << "PoweredDevice" << power << '\n';
+    virtual void print(){
+        cout << "I'm Base" << endl;
     }
 };
 
-class Scanner : virtual public PoweredDevice{
+
+class Derived : public Base{
 public:
-    Scanner(int scanner,int power)
-        :PoweredDevice(power)
-    {
-        cout << "Scanner: " << scanner << endl;
+    int m_j = 1;
+
+    virtual void print() override{
+        cout << "I'm derived" << endl;
     }
 };
 
-class Printer : virtual public PoweredDevice{
-public:
-    Printer(int printer, int power)
-        :PoweredDevice(power){
-            cout << "Printer: " << printer << endl;
-        }
-};
+void doSomething(Base& b){
+    b.print();
+}
 
-
-class Copier : public Scanner, public Printer{ // 다중 상속
-public:
-    Copier(int scanner , int printer , int power)
-        :Scanner(scanner,power),Printer(printer,power),PoweredDevice(power)
-        {}
-};
 
 int main(){
-    Copier cop(1,2,3);
+    Base b;
+    Derived d;
 
-    cout << &cop.Scanner::PoweredDevice::m_i << endl;
-    cout << &cop.Printer::PoweredDevice::m_i << endl;
+    std::vector<std::reference_wrapper<Base>> my_vec;
 
+    my_vec.push_back(b);
+    my_vec.push_back(d);
+
+    for(auto& ele : my_vec)
+        ele.get().print();
+        
     return 0;
 }
