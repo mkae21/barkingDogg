@@ -1,232 +1,138 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <algorithm>
+#include <vector>
 using namespace std;
 
 int office[10][10];
-bool isUsed[10];
-int cctvCnt;
-int n,m;
-int changedCnt;
-int minCnt = 2100000000;
+int row,col;
 
-std::vector<pair<int,int>> cctvIdx;
-std::vector<pair<int,int>> changed;
+std::vector<pair<int,int>> cctvs{};
 
-void up(int x, int y){
-    for(int i = x ; i >= 0 ; i--){
-        if(office[i][y] == 0){
-            changed.push_back({i,y});
-            office[i][y] = '#';
-            changedCnt++;
-        }
+int minCnt = 1e9;
 
-        //벽 뒤로는 갈 수 없다.
-        if(office[i][y] == 6)
-            break;
-    }
-}
+//우,상,좌,하
+int dx[4] = {0,1,0,-1};
+int dy[4] = {1,0,-1,0};
 
-void down(int x, int y){
-    for(int i = x ; i < n ; i++){
-        if(office[i][y] == 0){
-            changed.push_back({i,y});
-            office[i][y] = '#';
-            changedCnt++;
-        }
-        if(office[i][y] == 6)
-            break;
-    }
-}
+void check(int x, int y, int dir)
+{
+    dir %= 4; // 굳이 필요한가?
 
+    while(1)
+    {
+        int nx = x + dx[dir];
+        int ny = y + dy[dir];
 
-void right(int x, int y){
-    for(int j = y ; j < m ; j++){
-        if(office[x][j] == 0){
-            changed.push_back({x,j});
-            office[x][j] = '#';
-            changedCnt++;
-        }
+        x = nx;
+        y = ny;
 
-        if(office[x][j] == 6)
-            break;
-    }
-}
+        //범위 검사
+        if(nx < 0 || ny < 0 || nx >= row || ny >= col)
+            return;
 
-
-void left(int x, int y){
-    for(int j = y ; j >= 0 ; j--){
-        if(office[x][j] == 0){
-            changed.push_back({x,j});
-            office[x][j] = '#';
-            changedCnt++;
-        }
-
-        if(office[x][j] == 6)
-            break;
-    }
-}
-
-void revert(){
-
-    //부모가 몇개 변경이 되었는지 확인
-    int parentsChangedCnt = changed.size() - changedCnt;
-
-    for(int i = 0 ; i < changedCnt - parentsChangedCnt ; i++){
+        //6일 경우 끝남
+        if(office[nx][ny] == 6)
+            return;
         
-        //초기화 처리한 것은 다시 되돌려야함
-        pair<int,int> cur = changed.back();
-        changed.pop_back();
+        //겹칠 가능성 있으니까,cctv 뚥기도 가능
+        if(office[nx][ny] != 0)
+            continue;
 
-        office[cur.first][cur.second] = 0; //복구
+
+        office[nx][ny] = -1; //-1 집어넣기
     }
-
-    //초기화
-    changedCnt = parentsChangedCnt;
 }
 
 
-void countZero(){
-    int cnt = 0;
+void func(int idx)
+{
+    //base condition
+    if(idx == cctvs.size())
+    {
+        int cnt =  0;
 
-    for(int i = 0 ; i < n ; i++){
-        for(int j = 0 ; j < m ; j++){
-            if(office[i][j] == 0)
-                cnt++;
-        }
-    }
+        for(int i = 0 ; i < row ; i++)
+            for(int j = 0 ; j < col ; j++)
+            {
+                if(office[i][j] == 0) //사각 지대 세는 것
+                    cnt++;
+            }
 
-    minCnt = min(cnt,minCnt);
-}
-
-void func(int cnt){
-    if(cnt > cctvCnt){
-        //0 갯수 카운팅
-        countZero();
+        minCnt = min(cnt,minCnt);
+        
         return;
     }
 
+    int x = cctvs[idx].first;
+    int y = cctvs[idx].second;
+    int temp[10][10]; //원상 복구 용
 
-    for(int i = 0 ; i < cctvCnt ; i++){
-        if(!isUsed[i]){
-            int y = cctvIdx[i].second;
-            int x = cctvIdx[i].first;
-            
-            int cctvNum = office[x][y];
-            
-            isUsed[i] = true;
-            
-            if(cctvNum == 1){
-                up(x,y);
-                func(cnt + 1);
-                revert();
-                
-                down(x,y);
-                func(cnt + 1);
-                revert();
 
-                left(x,y);
-                func(cnt + 1);
-                revert();
-
-                right(x,y);
-                func(cnt + 1);
-                revert();
-
-            }
-            else if(cctvNum == 2){
-                right(x,y);
-                left(x,y);
-                func(cnt+1);
-                revert();
-
-                up(x,y);
-                down(x,y);
-                func(cnt + 1);
-                revert();
-            }
-            else if(cctvNum == 3){
-                up(x,y);
-                right(x,y);
-                func(cnt+1);
-                revert();
-
-                right(x,y);
-                down(x,y);
-                func(cnt + 1);
-                revert();
-
-                down(x,y);
-                left(x,y);
-                func(cnt + 1);
-                revert();
-
-                left(x,y);
-                up(x,y);
-                func(cnt + 1);
-                revert();
-            }
-            else if(cctvNum == 4){
-                up(x,y);
-                left(x,y);
-                right(x,y);
-                func(cnt + 1);
-                revert();
-
-                up(x,y);
-                right(x,y);
-                down(x,y);
-                func(cnt + 1);
-                revert();
-
-                right(x,y);
-                down(x,y);
-                left(x,y);
-                func(cnt + 1);
-                revert();
-
-                down(x,y);
-                left(x,y);
-                up(x,y);
-                func(cnt + 1);
-                revert();
-            }
-            else{
-                up(x,y);
-                right(x,y);
-                down(x,y);
-                left(x,y);
-                func(cnt + 1);
-                revert();
-            }
+    //우,상,좌,하
+    for(int dir = 0 ; dir < 4 ; dir++)
+    {
+        //각 단계별로 결과를 저장해야함.
+        for(int i = 0; i < row ; i++)
+            for(int j = 0 ; j < col ;j++)
+                temp[i][j] = office[i][j];
+        
+        if(office[x][y] == 1)
+        {
+            check(x,y,dir);
+        }
+        else if(office[x][y] == 2)
+        {
+            check(x,y,dir);
+            check(x,y,dir + 2);
+        }
+        else if(office[x][y] == 3)
+        {
+            check(x,y,dir);
+            check(x,y,dir +1);
+        }
+        else if(office[x][y] == 4)
+        {
+            check(x,y,dir);
+            check(x,y,dir+1);
+            check(x,y,dir+2);
+        }
+        else if(office[x][y] == 5)
+        {
+            check(x,y,dir);
+            check(x,y,dir+1);
+            check(x,y,dir+2);
+            check(x,y,dir+3);
         }
 
-        //각 cctv의 모든 과정이 끝나고나서 (모두 검사를 하고 나서 false 처리)
-        isUsed[i] = false;
+        func(idx + 1);
+
+        //초기화
+        for(int i = 0; i < row ; i++)
+            for(int j = 0 ; j < col ;j++)
+                office[i][j] = temp[i][j];
     }
+
 }
 
-int main(){
+
+int main()
+{
     ios::sync_with_stdio(0);
     cin.tie(0);
-    
-    cin >> n >> m;
+    cin >> row >> col;
 
-    //방문 처리 초기화
-    std::fill(isUsed,isUsed+10,0);
-
-    for(int i = 0 ; i < n ; i++){
-        for(int j = 0 ; j < m ; j++){
+    //초기화
+    for(int i = 0 ; i < row ; i++)
+        for(int j = 0 ; j < col ; j++)
+        {
             cin >> office[i][j];
-
-            //cctv 총 갯수
-            if( 0 < office[i][j] && office[i][j] < 6){
-                cctvCnt++;
-                cctvIdx.push_back({i,j});
+            if(office[i][j] != 0 && office[i][j] != 6)
+            {
+                cctvs.push_back({i,j});
             }
         }
-    }
 
-    func(1);
+    func(0);
     cout << minCnt << '\n';
-
     return 0;
 }
